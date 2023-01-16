@@ -17,6 +17,9 @@ import java.io.Writer;
 
 public class StorageUtils {
 
+    public static File getFileFromStorage(File rootDestination, Context context, String fileName, String folderName) {
+        return createOrGetFile(rootDestination, fileName, folderName);
+    }
 
     // méthode appelée pour créer ou récuperer un fichier
     private static File createOrGetFile(File destination, String fileName, String folderName) {

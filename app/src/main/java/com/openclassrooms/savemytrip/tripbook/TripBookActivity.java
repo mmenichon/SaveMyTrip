@@ -1,7 +1,9 @@
 package com.openclassrooms.savemytrip.tripbook;
 
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.openclassrooms.savemytrip.R;
 import com.openclassrooms.savemytrip.databinding.ActivityTripBookBinding;
@@ -31,6 +34,8 @@ public class TripBookActivity extends AppCompatActivity {
     private static final String FILENAME = "tripBook.txt";
     private static final String FOLDERNAME = "bookTrip";
     private static final int RC_STORAGE_WRITE_PERMS = 100;
+
+    private static final String AUTHORITY = "com.openclassrooms.savemytrip.fileprovider";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +98,7 @@ public class TripBookActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.action_share) {
-            /*TODO*/
+            shareFile();
             return true;
         } else if (itemId == R.id.action_save) {
             save();
@@ -178,6 +183,23 @@ public class TripBookActivity extends AppCompatActivity {
             directory = getFilesDir();
         }
         StorageUtils.setTextInStorage(directory, this, FILENAME, FOLDERNAME, binding.tripBookActivityEditText.getText().toString());
+    }
+
+    // ----------------------------------
+    // SHARE FILE
+    // ----------------------------------
+
+    private void shareFile(){
+        File internalFile = StorageUtils.getFileFromStorage(getFilesDir(),this, FILENAME, FOLDERNAME);
+        Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), AUTHORITY, internalFile);
+
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+
+        sharingIntent.setType("text/*");
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.trip_book_share)));
+
     }
 
 }
