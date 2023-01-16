@@ -42,4 +42,6 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.5.0"
     // VIEW MODEL & LIVE DATA
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    // TESTING
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 }
