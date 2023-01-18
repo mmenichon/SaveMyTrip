@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -47,7 +48,7 @@ public class TripBookActivity extends AppCompatActivity {
         readFromStorage();
     }
 
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResult) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResult) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResult);
         if (requestCode == RC_STORAGE_WRITE_PERMS) {
             if (grantResult.length > 0 && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
@@ -196,6 +197,7 @@ public class TripBookActivity extends AppCompatActivity {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 
         sharingIntent.setType("text/*");
+        //sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         sharingIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
 
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.trip_book_share)));

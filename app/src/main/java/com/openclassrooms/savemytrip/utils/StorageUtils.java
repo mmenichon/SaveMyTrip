@@ -17,16 +17,45 @@ import java.io.Writer;
 
 public class StorageUtils {
 
+    // méthode appelée pour créer ou récuperer un fichier
+    private static File createOrGetFile(File destination, String fileName, String folderName) {
+        File folder = new File(destination, folderName);
+        return new File(folder, fileName);
+    }
+
+    // Manipulation des espaces de stockages
+    public static String getTextFromStorage(File rootDestination, Context context, String fileName, String folderName) {
+        File file = createOrGetFile(rootDestination, fileName, folderName);
+        return readOnFile(context, file);
+    }
+
+    public static void setTextInStorage(File rootDestination, Context context, String fileName, String folderName, String text) {
+        File file = createOrGetFile(rootDestination, fileName, folderName);
+        writeOnFile(context, text, file);
+    }
+
     public static File getFileFromStorage(File rootDestination, Context context, String fileName, String folderName) {
         return createOrGetFile(rootDestination, fileName, folderName);
     }
 
-    // méthode appelée pour créer ou récuperer un fichier
-    private static File createOrGetFile(File destination, String fileName, String folderName) {
-        File folder = new File(destination, folderName);
+    // ----------------------------------
+    // EXTERNAL STORAGE
+    // ----------------------------------
 
-        return new File(folder, folderName);
+    public static boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return (Environment.MEDIA_MOUNTED.equals(state));
     }
+
+    public static boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        return (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state));
+    }
+
+
+    // ----------------------------------
+    // READ & WRITE ON STORAGE
+    // ----------------------------------
 
     // permet de lire le contenu d'un fichier passé en paramètre
     private static String readOnFile(Context context, File file) {
@@ -57,7 +86,6 @@ public class StorageUtils {
         return result;
     }
 
-
     // permet d'écrire du texte dans un fichier
     private static void writeOnFile(Context context, String text, File file) {
         try {
@@ -68,8 +96,7 @@ public class StorageUtils {
                 w.write(text);
                 w.flush();
                 fos.getFD().sync();
-            }
-            finally {
+            } finally {
                 w.close();
                 Toast.makeText(context, context.getString(R.string.saved), Toast.LENGTH_LONG).show();
             }
@@ -77,26 +104,6 @@ public class StorageUtils {
         catch (IOException e) {
             Toast.makeText(context, context.getString(R.string.error_happened), Toast.LENGTH_LONG).show();
         }
-    }
-
-    public static String getTextFromStorage(File rootDestination, Context context, String fileName, String folderName) {
-        File file = createOrGetFile(rootDestination, fileName, folderName);
-        return readOnFile(context, file);
-    }
-
-    public static void setTextInStorage(File rootDestination, Context context, String fileName, String folderName, String text) {
-        File file = createOrGetFile(rootDestination, fileName, folderName);
-        writeOnFile(context, text, file);
-    }
-
-    public static boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        return (Environment.MEDIA_MOUNTED.equals(state));
-    }
-
-    public static boolean isExternalStorageReadable() {
-        String state = Environment.getExternalStorageState();
-        return (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state));
     }
 
 }
