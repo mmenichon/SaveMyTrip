@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.openclassrooms.savemytrip.databinding.ActivityTodoListItemBinding;
 import com.openclassrooms.savemytrip.models.Item;
 
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
