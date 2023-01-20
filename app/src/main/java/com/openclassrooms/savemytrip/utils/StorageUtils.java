@@ -89,19 +89,29 @@ public class StorageUtils {
     // permet d'écrire du texte dans un fichier
     private static void writeOnFile(Context context, String text, File file) {
         try {
-            file.getParentFile().mkdirs();
+//            file.getParentFile().mkdirs();
+
+//            FileOutputStream fos = new FileOutputStream(file);
+//            Writer w = new BufferedWriter(new OutputStreamWriter(fos));
+//
+//            try {
+//                w.write(text);
+//                w.flush();
+//                fos.getFD().sync();
+//            } finally {
+//                w.close();
+//                Toast.makeText(context, context.getString(R.string.saved), Toast.LENGTH_LONG).show();
+//            }
             FileOutputStream fos = new FileOutputStream(file);
-            Writer w = new BufferedWriter(new OutputStreamWriter(fos));
-            try {
+
+            try (Writer w = new BufferedWriter(new OutputStreamWriter(fos))) {
                 w.write(text);
                 w.flush();
                 fos.getFD().sync();
             } finally {
-                w.close();
                 Toast.makeText(context, context.getString(R.string.saved), Toast.LENGTH_LONG).show();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Toast.makeText(context, context.getString(R.string.error_happened), Toast.LENGTH_LONG).show();
         }
     }
