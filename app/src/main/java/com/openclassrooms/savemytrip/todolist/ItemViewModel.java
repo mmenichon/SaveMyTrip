@@ -1,6 +1,5 @@
 package com.openclassrooms.savemytrip.todolist;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -8,6 +7,8 @@ import com.openclassrooms.savemytrip.models.Item;
 import com.openclassrooms.savemytrip.models.User;
 import com.openclassrooms.savemytrip.repositories.ItemDataRepository;
 import com.openclassrooms.savemytrip.repositories.UserDataRepository;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.concurrent.Executor;

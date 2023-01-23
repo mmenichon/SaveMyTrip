@@ -18,41 +18,25 @@ import java.util.concurrent.Executors;
 public abstract class SaveMyTripDatabase extends RoomDatabase {
 
     // --- SINGLETON ---
-
     private static volatile SaveMyTripDatabase INSTANCE;
 
     // --- DAO ---
-
     public abstract ItemDao itemDao();
-
     public abstract UserDao userDao();
 
     // --- INSTANCE ---
-
     public static SaveMyTripDatabase getInstance(Context context) {
-
         if (INSTANCE == null) {
-
             synchronized (SaveMyTripDatabase.class) {
-
                 if (INSTANCE == null) {
-
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-
                                     SaveMyTripDatabase.class, "MyDatabase.db")
-
                             .addCallback(prepopulateDatabase())
-
                             .build();
-
                 }
-
             }
-
         }
-
         return INSTANCE;
-
     }
 
     private static Callback prepopulateDatabase() {
@@ -60,17 +44,11 @@ public abstract class SaveMyTripDatabase extends RoomDatabase {
         return new Callback() {
 
             @Override
-
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
-
                 super.onCreate(db);
-
                 Executors.newSingleThreadExecutor().execute(() -> INSTANCE.userDao().createUser(new User(1, "Philippe", "https://oc-user.imgix.net/users/avatars/15175844164713_frame_523.jpg?auto=compress,format&q=80&h=100&dpr=2")));
-
             }
-
         };
-
     }
 
 }

@@ -19,7 +19,6 @@ import com.openclassrooms.savemytrip.models.User;
 
 import java.util.List;
 
-
 public class TodoListActivity extends AppCompatActivity {
 
     private ActivityTodoListBinding binding;
@@ -34,8 +33,22 @@ public class TodoListActivity extends AppCompatActivity {
         binding = ActivityTodoListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        configureViewModel();
         initView();
+
+        getCurrentUser();
+        getItem();
     }
+
+//    @Override
+//    public void onClickDeleteButton(Item item) {
+//        deleteItem(item);
+//    }
+//
+//    @Override
+//    public void onItemClick(Item item) {
+//        updateItem(item);
+//    }
 
     // -------------------
     // DATA
@@ -58,8 +71,7 @@ public class TodoListActivity extends AppCompatActivity {
 
     // 3 - Create a new item
     private void createItem() {
-        itemViewModel.createItem(binding.todoListActivityEditText.getText().toString(),
-                binding.todoListActivitySpinner.getSelectedItemPosition(), USER_ID);
+        itemViewModel.createItem(binding.todoListActivityEditText.getText().toString(), binding.todoListActivitySpinner.getSelectedItemPosition(), USER_ID);
         binding.todoListActivityEditText.setText("");
     }
 
@@ -108,7 +120,6 @@ public class TodoListActivity extends AppCompatActivity {
         if (user == null) return;
         binding.todoListActivityHeaderProfileText.setText(user.getUsername());
         Glide.with(this).load(user.getUrlPicture()).apply(RequestOptions.circleCropTransform()).into(binding.todoListActivityHeaderProfileImage);
-
     }
 
     // 6 - Update the list of items
