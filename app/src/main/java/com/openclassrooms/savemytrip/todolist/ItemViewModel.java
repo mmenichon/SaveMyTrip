@@ -53,12 +53,6 @@ public class ItemViewModel extends ViewModel {
         return itemDataSource.getItems(userId);
     }
 
-//    public void createItem(String text, int category, long userId) {
-//        executor.execute(() -> {
-//            itemDataSource.createItem(new Item(text, category, userId));
-//        });
-//    }
-
     public void createItem(Item item) {
         executor.execute(() -> {
             itemDataSource.createItem(item);

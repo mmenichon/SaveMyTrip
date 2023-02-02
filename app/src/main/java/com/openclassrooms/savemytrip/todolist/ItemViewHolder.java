@@ -17,7 +17,6 @@ import java.lang.ref.WeakReference;
 public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private ActivityTodoListItemBinding binding;
-    private TextView itemTextView;
 
     // FOR DATA
     private WeakReference<ItemAdapter.Listener> callbackWeakRef;

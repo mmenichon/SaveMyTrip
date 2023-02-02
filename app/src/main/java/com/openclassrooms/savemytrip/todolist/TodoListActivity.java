@@ -130,7 +130,4 @@ public class TodoListActivity extends AppCompatActivity implements ItemAdapter.L
         this.adapter.updateData(items);
     }
 
-
-
-
 }
