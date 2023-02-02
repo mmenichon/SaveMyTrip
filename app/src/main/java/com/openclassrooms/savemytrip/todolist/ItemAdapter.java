@@ -39,6 +39,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.activity_todo_list_item, parent, false);
+
         return new ItemViewHolder(view);
     }
 

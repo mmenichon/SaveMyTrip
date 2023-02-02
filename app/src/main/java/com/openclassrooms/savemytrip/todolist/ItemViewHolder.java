@@ -2,11 +2,13 @@ package com.openclassrooms.savemytrip.todolist;
 
 import android.graphics.Paint;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.savemytrip.R;
+import com.openclassrooms.savemytrip.databinding.ActivityTodoListBinding;
 import com.openclassrooms.savemytrip.databinding.ActivityTodoListItemBinding;
 import com.openclassrooms.savemytrip.models.Item;
 
@@ -15,12 +17,15 @@ import java.lang.ref.WeakReference;
 public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private ActivityTodoListItemBinding binding;
+    private TextView itemTextView;
 
     // FOR DATA
     private WeakReference<ItemAdapter.Listener> callbackWeakRef;
 
     public ItemViewHolder(@NonNull View itemView) {
         super(itemView);
+        // ----- /!\_/!\ --> déclaration du binding ! ----------
+        binding = ActivityTodoListItemBinding.bind(itemView);
     }
 
 
