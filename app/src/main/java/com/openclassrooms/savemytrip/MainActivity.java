@@ -10,8 +10,8 @@ import com.openclassrooms.savemytrip.todolist.TodoListActivity;
 import com.openclassrooms.savemytrip.tripbook.TripBookActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
 
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +23,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, TripBookActivity.class);
             startActivity(intent);
         });
+
         binding.mainActivityButtonTodoList.setOnClickListener(view -> {
             Intent intent = new Intent(this, TodoListActivity.class);
             startActivity(intent);
         });
     }
+
 }

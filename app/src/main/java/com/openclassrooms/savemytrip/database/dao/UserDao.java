@@ -13,7 +13,6 @@ import com.openclassrooms.savemytrip.models.User;
 public interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-
     void createUser(User user);
 
     @Query("SELECT * FROM User WHERE id = :userId")

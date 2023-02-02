@@ -1,26 +1,33 @@
 package com.openclassrooms.savemytrip.todolist;
 
 import android.graphics.Paint;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.savemytrip.R;
 import com.openclassrooms.savemytrip.databinding.ActivityTodoListItemBinding;
 import com.openclassrooms.savemytrip.models.Item;
 
-public class ItemViewHolder extends RecyclerView.ViewHolder {
+import java.lang.ref.WeakReference;
 
-    private final ActivityTodoListItemBinding binding;
+public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public ItemViewHolder(ActivityTodoListItemBinding binding) {
-        super(binding.getRoot());
-        this.binding = binding;
+    private ActivityTodoListItemBinding binding;
+
+    // FOR DATA
+    private WeakReference<ItemAdapter.Listener> callbackWeakRef;
+
+    public ItemViewHolder(@NonNull View itemView) {
+        super(itemView);
     }
 
+
     public void updateWithItem(Item item, ItemAdapter.Listener callback) {
-        binding.getRoot().setOnClickListener(view -> callback.onItemClick(item));
-        binding.activityTodoListItemRemove.setOnClickListener(view -> callback.onClickDeleteButton(item));
-        binding.activityTodoListItemText.setText(item.getText());
+        this.callbackWeakRef = new WeakReference<ItemAdapter.Listener>(callback);
+        this.binding.activityTodoListItemText.setText(item.getText());
+        this.binding.activityTodoListItemRemove.setOnClickListener(this);
 
         switch (item.getCategory()) {
             case 0: // TO VISIT
@@ -41,4 +48,9 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        ItemAdapter.Listener callback = callbackWeakRef.get();
+        if (callback != null) callback.onClickDeleteButton(getAdapterPosition());
+    }
 }

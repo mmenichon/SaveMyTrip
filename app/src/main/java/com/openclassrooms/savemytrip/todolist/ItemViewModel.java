@@ -15,6 +15,7 @@ import java.util.concurrent.Executor;
 
 public class ItemViewModel extends ViewModel {
 
+    // REPOSITORIES
     private final ItemDataRepository itemDataSource;
     private final UserDataRepository userDataSource;
     private final Executor executor;
@@ -23,11 +24,13 @@ public class ItemViewModel extends ViewModel {
     @Nullable
     private LiveData<User> currentUser;
 
+    // CONSTRUCTEUR
     public ItemViewModel(ItemDataRepository itemDataSource, UserDataRepository userDataSource, Executor executor) {
         this.itemDataSource = itemDataSource;
         this.userDataSource = userDataSource;
         this.executor = executor;
     }
+
 
     public void init(long userId) {
         if (this.currentUser != null) {
@@ -36,19 +39,29 @@ public class ItemViewModel extends ViewModel {
         currentUser = userDataSource.getUser(userId);
     }
 
+    // ----------
     // FOR USER
-    public LiveData<User> getUser() {
+    // ----------
+    public LiveData<User> getUser(long userId) {
         return this.currentUser;
     }
 
+    // ----------
     // FOR ITEM
+    // ----------
     public LiveData<List<Item>> getItems(long userId) {
         return itemDataSource.getItems(userId);
     }
 
-    public void createItem(String text, int category, long userId) {
+//    public void createItem(String text, int category, long userId) {
+//        executor.execute(() -> {
+//            itemDataSource.createItem(new Item(text, category, userId));
+//        });
+//    }
+
+    public void createItem(Item item) {
         executor.execute(() -> {
-            itemDataSource.createItem(new Item(text, category, userId));
+            itemDataSource.createItem(item);
         });
     }
 
