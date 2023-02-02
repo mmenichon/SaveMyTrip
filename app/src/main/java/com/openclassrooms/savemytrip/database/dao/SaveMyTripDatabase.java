@@ -47,7 +47,7 @@ public abstract class SaveMyTripDatabase extends RoomDatabase {
                 super.onCreate(db);
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("id", 1);
-                contentValues.put("username", "Philippe");
+                contentValues.put("username", "Manon");
                 contentValues.put("urlPicture", "https://oc-user.imgix.net/users/avatars/15175844164713_frame_523.jpg?auto=compress,format&q=80&h=100&dpr=2");
 
                 db.insert("User", OnConflictStrategy.IGNORE, contentValues);
