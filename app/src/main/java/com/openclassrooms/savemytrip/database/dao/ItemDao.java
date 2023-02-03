@@ -25,12 +25,12 @@ public interface ItemDao {
     Cursor getItemsWithCursor(long userId);
 
     @Insert
-    void insertItem(Item item);
+    long insertItem(Item item);
 
     @Update
-    void updateItem(Item item);
+    int updateItem(Item item);
 
     @Query("DELETE FROM Item WHERE id = :itemId")
-    void deleteItem(long itemId);
+    int deleteItem(long itemId);
 
 }
